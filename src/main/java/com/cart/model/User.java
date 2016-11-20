@@ -15,7 +15,7 @@ public class User extends BaseDomain {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String id;
+	private String userId;
 	private String name;
 	private String address;
 	private String emailId;
@@ -23,12 +23,12 @@ public class User extends BaseDomain {
 	private char isOnline;
 	private String role;
 
-	public String getId() {
-		return id;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getName() {

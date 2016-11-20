@@ -13,6 +13,7 @@ import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.cart.model.BaseDomain;
+import com.cart.model.Blog;
 import com.cart.model.User;
 
 @Configuration
@@ -27,7 +28,8 @@ public class DBConfig {
 		hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "update");
 		hibernateProperties.setProperty("hibernate.show_sql", "true");
 		lsf.addProperties(hibernateProperties);
-		return lsf.addAnnotatedClass(User.class).addAnnotatedClass(BaseDomain.class).buildSessionFactory();
+		return lsf.addAnnotatedClass(User.class).addAnnotatedClass(BaseDomain.class).addAnnotatedClass(Blog.class)
+				.buildSessionFactory();
 
 	}
 
