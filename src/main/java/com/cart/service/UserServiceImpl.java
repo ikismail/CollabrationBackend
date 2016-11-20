@@ -31,12 +31,16 @@ public class UserServiceImpl implements UserService {
 		return userDao.getById(id);
 	}
 
-	public void saveUser(User user) {
-		userDao.saveUser(user);
+	public boolean saveUser(User user) {
+		return userDao.saveUser(user);
 	}
 
-	public void updateUser(User user) {
-		userDao.updateUser(user);
+	public boolean updateUser(User user) {
+		return userDao.updateUser(user);
+	}
+
+	public User validate(String id, String password) {
+		return userDao.validate(id, password);
 	}
 
 }
