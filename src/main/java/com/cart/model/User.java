@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class User extends BaseDomain {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String userId;
 	private String name;
 	private String address;

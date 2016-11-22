@@ -36,7 +36,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Transactional
 	public List<User> getAllUser() {
-		log.debug("Starting getAllUsers DaoImpl");
+		System.out.println("Starting getAllUsers DaoImpl");
 		Session session = sessionFactory.openSession();
 		Query query = session.createQuery("from User");
 		List<User> users = query.list();
@@ -46,7 +46,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Transactional
 	public User getById(String id) {
-		log.debug("Starting of the getById method in DaoImpl");
+		System.out.println("Starting of the getById method in DaoImpl");
 		Session session = sessionFactory.openSession();
 		User user = (User) session.get(User.class, id);
 		/*
@@ -60,9 +60,9 @@ public class UserDaoImpl implements UserDao {
 
 	@Transactional
 	public boolean saveUser(User user) {
-		log.debug("starting save method in daoimpl");
+		System.out.println("starting save method in daoimpl");
 		try {
-			sessionFactory.getCurrentSession().save(user);
+			sessionFactory.openSession().save(user);
 			return true;
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -84,10 +84,10 @@ public class UserDaoImpl implements UserDao {
 
 	@Transactional
 	public User validate(String emailId, String password) {
-		log.debug("Starting vlidate method in daoImpl");
+		System.out.println("Starting vlidate method in daoImpl");
 		String hql = "from User where emailId='" + emailId + "' and password='" + password + "'";
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
-		log.debug("Ending of the Update Method in DaoImpl");
+		System.out.println("Ending of the Update Method in DaoImpl");
 		return (User) query.uniqueResult();
 
 	}

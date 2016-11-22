@@ -33,21 +33,21 @@ public class UserController {
 
 	@RequestMapping(value = "/getAllUsers", method = RequestMethod.GET)
 	public ResponseEntity<List<User>> getAllUsers() {
-		log.debug("Starting getAllUsers method in Controller");
+		System.out.println("Starting getAllUsers method in Controller");
 		List<User> users = userService.getAllUser();
 
 		if (users.isEmpty()) {
 			user.setErrorCode("404");
 			user.setErrorMessage("No Users are available");
 		}
-		log.debug("Ending getAllUsers method in Controller");
+		System.out.println("Ending getAllUsers method in Controller");
 		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
 
 	}
 
 	@RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
 	public ResponseEntity<User> getUserById(@PathVariable("userId") String userId) {
-		log.debug("Starting getUserById method in controller");
+		System.out.println("Starting getUserById method in controller");
 		user = userService.getById(userId);
 		if (user == null) {
 			user = new User();
@@ -66,6 +66,7 @@ public class UserController {
 
 		} else {
 			user.setIsOnline('N');
+			System.out.println("saving user in controller");
 			if (userService.saveUser(user)) {
 				user.setErrorCode("200");
 				user.setErrorMessage("Your registration is Successfull");
