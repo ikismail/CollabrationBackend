@@ -28,7 +28,7 @@ public class JobController {
 		if (jobs.isEmpty()) {
 			return new ResponseEntity<List<Job>>(jobs, HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<Job>>(jobs,HttpStatus.OK);
+		return new ResponseEntity<List<Job>>(jobs, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/job/getJobById/{jobId}", method = RequestMethod.GET)
@@ -52,11 +52,23 @@ public class JobController {
 
 	}
 
-	@RequestMapping(value = "/job/deleteJob/{jobId}")
+	@RequestMapping(value = "/job/deleteJob/{jobId}",method=RequestMethod.DELETE)
 	public ResponseEntity<Void> deleteJob(@PathVariable("jobId") String jobId) {
 		System.out.println("----Starting delete in Jobcontroller");
+		Job job = jobService.getJobById(jobId);
+		if (job == null)
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		jobService.removeJob(jobId);
 		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/job/updateJob/{jobId}", method = RequestMethod.PUT)
+	public ResponseEntity<Job> updateJob(@PathVariable("jobId") String jobId, @RequestBody Job job) {
+		Job updatedJob = jobService.updateJob(jobId, job);
+		if (job == null)
+			return new ResponseEntity<Job>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<Job>(updatedJob, HttpStatus.OK);
+
 	}
 
 }

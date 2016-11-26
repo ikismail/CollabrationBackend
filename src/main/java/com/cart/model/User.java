@@ -14,14 +14,41 @@ import org.springframework.stereotype.Component;
 public class User extends BaseDomain {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String userId;
 	private String name;
 	private String address;
 	private String emailId;
+	private String phoneNo;
 	private String password;
 	private char isOnline;
+	private char status;
 	private String role;
+	private String reason;
+
+	public String getPhoneNo() {
+		return phoneNo;
+	}
+
+	public void setPhoneNo(String phoneNo) {
+		this.phoneNo = phoneNo;
+	}
+
+	public char getStatus() {
+		return status;
+	}
+
+	public void setStatus(char status) {
+		this.status = status;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
 
 	public String getUserId() {
 		return userId;

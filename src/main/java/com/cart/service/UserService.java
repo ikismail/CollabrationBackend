@@ -9,6 +9,7 @@ public interface UserService {
 	List<User> getAllUser();
 
 	User getById(String id);
+	User getByemailId(String emailId);
 
 	boolean saveUser(User user);
 

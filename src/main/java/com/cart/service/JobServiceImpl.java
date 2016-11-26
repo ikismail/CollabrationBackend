@@ -34,8 +34,8 @@ public class JobServiceImpl implements JobService {
 		jobDao.saveJob(job);
 	}
 
-	public void updateJob(Job job) {
-		jobDao.updateJob(job);
+	public Job updateJob(String jobId,Job job) {
+		return 	jobDao.updateJob(jobId,job);
 	}
 
 	public void removeJob(String jobId) {

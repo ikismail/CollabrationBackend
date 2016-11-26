@@ -12,7 +12,7 @@ public interface JobService {
 
 	void saveJob(Job job);
 
-	void updateJob(Job job);
+	Job updateJob(String jobId,Job job);
 
 	void removeJob(String jobId);
 }
