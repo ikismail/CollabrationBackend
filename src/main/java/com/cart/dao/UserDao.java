@@ -10,9 +10,11 @@ public interface UserDao {
 	
 	User getById(String id);
 	
+	User getByemailId(String emailId);
+	
 	boolean saveUser(User user);
 	
 	boolean updateUser(User user);
 	
-	User validate(String id, String password);
+	User validate(String emailId, String password);
 }

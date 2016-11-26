@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.cart.model.BaseDomain;
 import com.cart.model.Blog;
+import com.cart.model.Friend;
 import com.cart.model.Job;
 import com.cart.model.User;
 
@@ -30,7 +31,7 @@ public class DBConfig {
 		hibernateProperties.setProperty("hibernate.show_sql", "true");
 		lsf.addProperties(hibernateProperties);
 		return lsf.addAnnotatedClass(User.class).addAnnotatedClass(BaseDomain.class).addAnnotatedClass(Blog.class)
-				.addAnnotatedClass(Job.class).buildSessionFactory();
+				.addAnnotatedClass(Job.class).addAnnotatedClass(Friend.class).buildSessionFactory();
 
 	}
 

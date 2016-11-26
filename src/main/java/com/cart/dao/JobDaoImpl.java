@@ -13,15 +13,16 @@ import com.cart.model.Job;
 
 @Repository
 public class JobDaoImpl implements JobDao {
-	
+
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	@Transactional
 	public List<Job> getAllJobs() {
 		Session session = sessionFactory.openSession();
 		List<Job> jobs = session.createQuery("from Job").list();
 		System.out.println("----List of Jobs-----");
+		System.out.println(jobs);
 		session.flush();
 		session.close();
 		return jobs;
@@ -40,25 +41,39 @@ public class JobDaoImpl implements JobDao {
 	public void saveJob(Job job) {
 		Session session = sessionFactory.openSession();
 		session.save(job);
-		System.out.println("-----Saving Job---"+job);
+		System.out.println("-----Saving Job---" + job);
 		session.close();
 	}
 
 	@Transactional
-	public void updateJob(Job job) {
+	public Job updateJob(String jobId, Job job) {
 		Session session = sessionFactory.openSession();
-		session.update(job);
-		System.out.println("-----Updating Job----" + job);
+		// emailid= ismail@gmail.com
+		//select [before modification] 
+		Job currentJob = (Job) session.get(Job.class, jobId); // persistent
+		if (currentJob == null) // id doesn't in the database
+			return null;
+		// if i change the emailid as ismail@yahoo.com
+		// update job set name=?,emailid=?.. where jobId=?
+		
+		//to modify update
+		session.merge(job); // update query
+		//select [after modification]
+		Job updatedJob = (Job) session.get(Job.class, jobId); // select Query
+		System.out.println("-----Updating Job----" + updatedJob);
 		session.flush();
 		session.close();
+		return updatedJob;
 	}
 
 	@Transactional
 	public void removeJob(String jobId) {
-		Session	session = sessionFactory.openSession();
+		Session session = sessionFactory.openSession();
+		//make the object persistent - job
 		Job job = (Job) session.get(Job.class, jobId);
 		session.delete(job);
-		System.out.println("-----Removing------"+job);
+		//Transient - job
+		System.out.println("-----Removing------" + job);
 		session.flush();
 		session.close();
 	}

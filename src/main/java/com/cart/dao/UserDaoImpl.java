@@ -37,11 +37,10 @@ public class UserDaoImpl implements UserDao {
 	@Transactional
 	public List<User> getAllUser() {
 		System.out.println("Starting getAllUsers DaoImpl");
-		Session session = sessionFactory.openSession();
-		Query query = session.createQuery("from User");
-		List<User> users = query.list();
-		session.close();
-		return users;
+		String hql = "from User";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		System.out.println("Ending UserDao getAllUser");
+		return query.list();
 	}
 
 	@Transactional
@@ -56,6 +55,15 @@ public class UserDaoImpl implements UserDao {
 		 * user = (User) query.uniqueResult();
 		 */
 		return user;
+	}
+
+	@Transactional
+	public User getByemailId(String emailId) {
+		System.out.println("Starting getby emailid method");
+		String hql = "from User where emailId='"+emailId+"'";
+		System.out.println("------getByemailID query : "+hql);
+		Query query = sessionFactory.openSession().createQuery(hql);
+		return (User) query.uniqueResult();
 	}
 
 	@Transactional

@@ -1,37 +1,34 @@
 package com.cart.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.springframework.stereotype.Component;
 
 @Entity
 @Table
-public class Friend {
+@Component
+public class Friend extends BaseDomain {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String friendId;
+	private int id;
+	//user can accept or reject friendrequest
 	private String status;
-	private String isOnline;
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "userId")
-	private User user;
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "userId")
-	private User friend;
+	private char isOnline;
+	private String friendId;
+	private String userID;
 
-	public String getFriendId() {
-		return friendId;
+	public Friend(){
+		
+	}
+	
+	public int getId() {
+		return id;
 	}
 
-	public void setFriendId(String friendId) {
-		this.friendId = friendId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getStatus() {
@@ -42,28 +39,28 @@ public class Friend {
 		this.status = status;
 	}
 
-	public String getIsOnline() {
+	public char getIsOnline() {
 		return isOnline;
 	}
 
-	public void setIsOnline(String isOnline) {
+	public void setIsOnline(char isOnline) {
 		this.isOnline = isOnline;
 	}
 
-	public User getUser() {
-		return user;
+	public String getFriendId() {
+		return friendId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setFriendId(String friendId) {
+		this.friendId = friendId;
 	}
 
-	public User getFriend() {
-		return friend;
+	public String getUserID() {
+		return userID;
 	}
 
-	public void setFriend(User friend) {
-		this.friend = friend;
+	public void setUserID(String userID) {
+		this.userID = userID;
 	}
 
 }

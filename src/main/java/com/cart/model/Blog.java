@@ -6,8 +6,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
 @Entity
 @Table(name = "blog")
+@Component
 public class Blog extends BaseDomain {
 
 	@Id
@@ -15,17 +18,25 @@ public class Blog extends BaseDomain {
 	private String blogId;
 	private String title;
 	private String description;
+	private String userId;
 	private String blogCreatedDate;
 	private String status;
-	private String postLike;
-	
+	private String reason;
 
-	public String getPostLike() {
-		return postLike;
+	public String getReason() {
+		return reason;
 	}
 
-	public void setPostLike(String postLike) {
-		this.postLike = postLike;
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getUserId() {
+		return userId;
 	}
 
 	public String getBlogId() {

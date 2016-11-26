@@ -30,6 +30,10 @@ public class UserServiceImpl implements UserService {
 	public User getById(String id) {
 		return userDao.getById(id);
 	}
+	
+	public User getByemailId(String emailId){
+		return userDao.getByemailId(emailId);
+	}
 
 	public boolean saveUser(User user) {
 		return userDao.saveUser(user);
