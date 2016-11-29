@@ -16,7 +16,8 @@ public class User extends BaseDomain {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String userId;
-	private String name;
+	private String fName;
+	private String lName;
 	private String address;
 	private String emailId;
 	private String phoneNo;
@@ -25,6 +26,22 @@ public class User extends BaseDomain {
 	private char status;
 	private String role;
 	private String reason;
+
+	public String getfName() {
+		return fName;
+	}
+
+	public void setfName(String fName) {
+		this.fName = fName;
+	}
+
+	public String getlName() {
+		return lName;
+	}
+
+	public void setlName(String lName) {
+		this.lName = lName;
+	}
 
 	public String getPhoneNo() {
 		return phoneNo;
@@ -56,14 +73,6 @@ public class User extends BaseDomain {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getAddress() {

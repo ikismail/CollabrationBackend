@@ -20,7 +20,10 @@ public class JobController {
 
 	@Autowired
 	private JobService jobService;
-
+	@Autowired
+	private Job job;
+	
+	
 	@RequestMapping(value = "/job/getAllJobs", method = RequestMethod.GET)
 	public ResponseEntity<List<Job>> getAllJobs() {
 		System.out.println("----Starting getAllJobs in JobController");
@@ -52,7 +55,7 @@ public class JobController {
 
 	}
 
-	@RequestMapping(value = "/job/deleteJob/{jobId}",method=RequestMethod.DELETE)
+	@RequestMapping(value = "/job/deleteJob/{jobId}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deleteJob(@PathVariable("jobId") String jobId) {
 		System.out.println("----Starting delete in Jobcontroller");
 		Job job = jobService.getJobById(jobId);
@@ -64,9 +67,11 @@ public class JobController {
 
 	@RequestMapping(value = "/job/updateJob/{jobId}", method = RequestMethod.PUT)
 	public ResponseEntity<Job> updateJob(@PathVariable("jobId") String jobId, @RequestBody Job job) {
+		Date date = new Date();
+		job.setPostDate(date.toString());
 		Job updatedJob = jobService.updateJob(jobId, job);
-		if (job == null)
-			return new ResponseEntity<Job>(HttpStatus.NOT_FOUND);
+		job.setErrorCode("200");
+		job.setErrorMessage("Updated Successfully");
 		return new ResponseEntity<Job>(updatedJob, HttpStatus.OK);
 
 	}

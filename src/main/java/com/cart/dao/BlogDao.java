@@ -8,9 +8,15 @@ public interface BlogDao {
 
 	List<Blog> getAllblogs();
 
-	void saveBlog(Blog blog);
+	boolean saveBlog(Blog blog);
 
-	void updateBlog(Blog blog);
+	boolean updateStatus(Blog blog);
 
 	Blog getBlogById(String blogId);
+	
+	Blog updateBlog(String blogId,Blog blog);
+	
+	void increaseLikes(String blogId);
+	
+	void increaseDislikes(String blogId);
 }

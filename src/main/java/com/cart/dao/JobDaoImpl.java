@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,44 +39,53 @@ public class JobDaoImpl implements JobDao {
 	}
 
 	@Transactional
-	public void saveJob(Job job) {
+	public boolean saveJob(Job job) {
 		Session session = sessionFactory.openSession();
-		session.save(job);
-		System.out.println("-----Saving Job---" + job);
-		session.close();
+		try {
+			session.save(job);
+			System.out.println("-----Saving Job---" + job);
+			session.close();
+			return true;
+		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Transactional
 	public Job updateJob(String jobId, Job job) {
+		System.out.println("-----Starting update job in daoimpl");
 		Session session = sessionFactory.openSession();
-		// emailid= ismail@gmail.com
-		//select [before modification] 
-		Job currentJob = (Job) session.get(Job.class, jobId); // persistent
-		if (currentJob == null) // id doesn't in the database
+
+		Job currentJob = (Job) session.get(Job.class, jobId);
+		if (currentJob == null)
 			return null;
-		// if i change the emailid as ismail@yahoo.com
-		// update job set name=?,emailid=?.. where jobId=?
-		
-		//to modify update
-		session.merge(job); // update query
-		//select [after modification]
-		Job updatedJob = (Job) session.get(Job.class, jobId); // select Query
-		System.out.println("-----Updating Job----" + updatedJob);
+		session.merge(job);
+		Job updatedJob = (Job) session.get(Job.class, jobId);
 		session.flush();
 		session.close();
+		System.out.println("Ending Update method in DaoImpl");
 		return updatedJob;
 	}
 
 	@Transactional
-	public void removeJob(String jobId) {
+	public boolean removeJob(String jobId) {
 		Session session = sessionFactory.openSession();
-		//make the object persistent - job
-		Job job = (Job) session.get(Job.class, jobId);
-		session.delete(job);
-		//Transient - job
-		System.out.println("-----Removing------" + job);
-		session.flush();
-		session.close();
+		// make the object persistent - job
+		try {
+			Job job = (Job) session.get(Job.class, jobId);
+			session.delete(job);
+			// Transient - job
+			System.out.println("-----Removing------" + job);
+			session.flush();
+			session.close();
+			return true;
+		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

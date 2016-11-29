@@ -22,16 +22,35 @@ public class BlogServiceImpl implements BlogService {
 	}
 
 	
-	public void saveBlog(Blog blog) {
-		blogDao.saveBlog(blog);
+	public boolean saveBlog(Blog blog) {
+		return  blogDao.saveBlog(blog);
 	}
 
-	public void updateBlog(Blog blog) {
-		blogDao.updateBlog(blog);
+	public boolean updateStatus(Blog blog) {
+		return blogDao.updateStatus(blog);
 	}
 
 	public Blog getBlogById(String blogId) {
 		return blogDao.getBlogById(blogId);
+	}
+
+
+
+	public Blog updateBlog(String blogId, Blog blog) {
+		// TODO Auto-generated method stub
+		return blogDao.updateBlog(blogId, blog);
+	}
+
+
+	public void increaseLikes(String blogId) {
+		// TODO Auto-generated method stub
+		blogDao.increaseLikes(blogId);
+	}
+
+
+	public void increaseDislikes(String blogId) {
+		// TODO Auto-generated method stub
+	   blogDao.increaseDislikes(blogId);	
 	}
 
 }

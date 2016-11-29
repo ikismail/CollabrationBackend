@@ -55,7 +55,7 @@ public class UserController {
 			user.setErrorMessage("User does not exist with this id:" + userId);
 			return new ResponseEntity<User>(user, HttpStatus.NOT_FOUND);
 		}
-		System.out.println("-----UserName : " + user.getName());
+		System.out.println("-----UserName : " + user.getfName());
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 
@@ -117,7 +117,7 @@ public class UserController {
 
 		user = userService.getByemailId(loggedInUserId);
 
-		System.out.println("User: " + user.getName());
+		System.out.println("User: " + user.getfName());
 		user.setIsOnline('N');
 
 		session.invalidate();
