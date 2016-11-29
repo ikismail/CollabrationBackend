@@ -10,11 +10,11 @@ public interface JobDao {
 	
 	Job getJobById(String jobId);
 	
-	void saveJob(Job job);
+	boolean saveJob(Job job);
 	
 	Job updateJob(String jobId,Job job);
 	
-	void removeJob(String jobId);
+	boolean removeJob(String jobId);
 	
 	
 	

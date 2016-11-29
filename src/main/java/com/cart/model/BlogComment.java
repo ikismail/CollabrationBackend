@@ -1,13 +1,9 @@
 package com.cart.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -22,12 +18,8 @@ public class BlogComment {
 	private String commentId;
 	private String comment;
 	private String commentedDate;
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "blogId")
-	private Blog blog;
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "userId")
-	private User user;
+	private String blogId;
+	private String userId;
 
 	public String getCommentId() {
 		return commentId;
@@ -53,19 +45,21 @@ public class BlogComment {
 		this.commentedDate = commentedDate;
 	}
 
-	public Blog getBlog() {
-		return blog;
+	public String getBlogId() {
+		return blogId;
 	}
 
-	public void setBlog(Blog blog) {
-		this.blog = blog;
+	public void setBlogId(String blogId) {
+		this.blogId = blogId;
 	}
 
-	public User getUser() {
-		return user;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
+
+	
 }

@@ -30,15 +30,16 @@ public class JobServiceImpl implements JobService {
 		return jobDao.getJobById(jobId);
 	}
 
-	public void saveJob(Job job) {
-		jobDao.saveJob(job);
+	public boolean saveJob(Job job) {
+		return jobDao.saveJob(job);
 	}
 
-	public Job updateJob(String jobId,Job job) {
-		return 	jobDao.updateJob(jobId,job);
+	public Job updateJob(String jobId, Job job) {
+		return jobDao.updateJob(jobId, job);
 	}
 
-	public void removeJob(String jobId) {
-		jobDao.removeJob(jobId);
+	public boolean removeJob(String jobId) {
+		return jobDao.removeJob(jobId);
 	}
+
 }
