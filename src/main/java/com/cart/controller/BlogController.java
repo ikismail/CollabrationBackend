@@ -71,21 +71,30 @@ public class BlogController {
 		return new ResponseEntity<Blog>(updatedBlog, HttpStatus.OK);
 	}
 
-	
-	@RequestMapping(value="/blog/upvote/{blogId}",method=RequestMethod.GET)
-	public ResponseEntity<Blog> upvote(@PathVariable("blogId")String blogId){
+	@RequestMapping(value = "/blog/{blogId}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> deleteBlog(@PathVariable String blogId) {
+		Blog blog = blogService.getBlogById(blogId);
+		if (blog == null)
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+		blogService.deleteBlog(blogId);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+
+	}
+
+	@RequestMapping(value = "/blog/upvote/{blogId}", method = RequestMethod.GET)
+	public ResponseEntity<Blog> upvote(@PathVariable("blogId") String blogId) {
 		System.out.println("Starting upvote method in controller");
 		blogService.increaseLikes(blogId);
 		return new ResponseEntity<Blog>(HttpStatus.OK);
 	}
-	
-	@RequestMapping(value="/blog/downvote/{blogId}",method=RequestMethod.GET)
-	public ResponseEntity<Blog> downvote(@PathVariable("blogId")String blogId){
+
+	@RequestMapping(value = "/blog/downvote/{blogId}", method = RequestMethod.GET)
+	public ResponseEntity<Blog> downvote(@PathVariable("blogId") String blogId) {
 		System.out.println("Starting upvote method in controller");
 		blogService.increaseDislikes(blogId);
 		return new ResponseEntity<Blog>(HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/blog/accept/{blogId}/", method = RequestMethod.GET)
 	public ResponseEntity<Blog> acceptBlog(@PathVariable("blogId") String blogId) {
 		System.out.println("---Starting acceptBlog method");
