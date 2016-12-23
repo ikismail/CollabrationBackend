@@ -11,6 +11,8 @@ public interface BlogDao {
 	boolean saveBlog(Blog blog);
 
 	boolean updateStatus(Blog blog);
+	
+	void deleteBlog(String blogId);
 
 	Blog getBlogById(String blogId);
 	

@@ -12,6 +12,8 @@ public interface BlogService {
 
 	boolean updateStatus(Blog blog);
 
+	void deleteBlog(String blogId);
+	
 	Blog getBlogById(String blogId);
 	
 	Blog updateBlog(String blogId , Blog blog);

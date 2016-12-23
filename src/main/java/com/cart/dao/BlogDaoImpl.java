@@ -42,7 +42,7 @@ public class BlogDaoImpl implements BlogDao {
 		System.out.println("Max Likes" + maxLikes);
 		return maxLikes;
 	}
-	
+
 	private Integer addDislikes() {
 		System.out.println("----> Starting getMaxLikes method");
 		String hql = "select max(dislikes) from Blog";
@@ -100,6 +100,15 @@ public class BlogDaoImpl implements BlogDao {
 	}
 
 	@Transactional
+	public void deleteBlog(String blogId) {
+		Session session = sessionFactory.openSession();
+		Blog blog = (Blog) session.get(Blog.class, blogId);
+		session.delete(blog);
+		session.flush();
+		session.close();
+	};
+
+	@Transactional
 	public Blog getBlogById(String blogId) {
 		Session session = sessionFactory.openSession();
 		Blog blog = (Blog) session.get(Blog.class, blogId);
@@ -130,7 +139,7 @@ public class BlogDaoImpl implements BlogDao {
 		session.flush();
 		session.close();
 	}
-	
+
 	public void increaseDislikes(String blogId) {
 		Session session = sessionFactory.openSession();
 		System.out.println("---starting likes ");
