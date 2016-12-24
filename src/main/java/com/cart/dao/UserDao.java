@@ -16,5 +16,5 @@ public interface UserDao {
 	
 	boolean updateUser(User user);
 	
-	User validate(String emailId, String password);
+	User validate(User user);
 }

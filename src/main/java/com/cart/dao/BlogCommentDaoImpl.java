@@ -7,6 +7,8 @@ import javax.transaction.Transactional;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.metamodel.source.annotations.entity.ConfiguredClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +18,7 @@ import com.cart.model.User;
 @Repository
 public class BlogCommentDaoImpl implements BlogCommentDao {
 
+	
 	@Autowired
 	private SessionFactory sessionFactory;
 

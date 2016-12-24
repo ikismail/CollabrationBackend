@@ -3,6 +3,8 @@ package com.cart.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cart.model.Blog;
 import com.cart.service.BlogService;
@@ -25,34 +26,54 @@ public class BlogController {
 	private Blog blog;
 
 	@RequestMapping(value = "/blog/getAllblogs", method = RequestMethod.GET)
-	public ResponseEntity<List<Blog>> getAllBlogs() {
+	public ResponseEntity<?> getAllBlogs(HttpSession session) {
+
+		String loggedInUserId = (String) session.getAttribute("loggedInUserId");
 		List<Blog> blogs = blogService.getAllblogs();
-		if (blogs.isEmpty()) {
-			blog.setErrorCode("404");
-			blog.setErrorMessage("There is no blogs please add");
+		if (loggedInUserId == null) {
+			Blog blog = new Blog();
+			blog.setErrorCode("401");
+			blog.setErrorMessage("Please LogIn");
+			return new ResponseEntity<Blog>(blog, HttpStatus.UNAUTHORIZED);
+		} else {
+
+			if (blogs.isEmpty()) {
+				blog.setErrorCode("404");
+				blog.setErrorMessage("There is no blogs please add");
+			}
+			blog.setErrorCode("200");
+			blog.setErrorMessage("List of blogs");
+			return new ResponseEntity<List<Blog>>(blogs, HttpStatus.OK);
 		}
-		blog.setErrorCode("200");
-		blog.setErrorMessage("List of blogs");
-		return new ResponseEntity<List<Blog>>(blogs, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/blog/create/", method = RequestMethod.POST)
-	public ResponseEntity<Blog> createBlog(@RequestBody Blog blog) {
-		blog.setStatus("New");
-		blog.setLikes(0);
-		blog.setDislikes(0);
-		Date date = new Date();
-		blog.setBlogCreatedDate(date.toString());
-		System.out.println("----saving create blog");
-		if (blogService.saveBlog(blog)) {
-			blog.setErrorCode("200");
-			blog.setErrorMessage("Your Blog has been saved Successfully");
+	public ResponseEntity<?> createBlog(@RequestBody Blog blog, HttpSession session) {
+		String loggedInUserId = (String) session.getAttribute("loggedInUserId");
+		if (loggedInUserId != null) {
+			blog.setUserId(loggedInUserId);
+			blog.setStatus("New");
+			blog.setLikes(0);
+			blog.setDislikes(0);
+			Date date = new Date();
+			blog.setBlogCreatedDate(date.toString());
+			System.out.println("----saving create blog");
+			if (blogService.saveBlog(blog)) {
+				blog.setErrorCode("200");
+				blog.setErrorMessage("Your Blog has been saved Successfully");
+			} else {
+				blog.setErrorCode("405");
+				blog.setErrorMessage("Unable to process your request");
+			}
+			System.out.println("----Ending of the method saveBlog");
+			return new ResponseEntity<Blog>(blog, HttpStatus.OK);
 		} else {
-			blog.setErrorCode("405");
-			blog.setErrorMessage("Unable to process your request");
+			blog = new Blog();
+			blog.setErrorCode("401");
+			blog.setErrorMessage("Please LogIn");
+			return new ResponseEntity<Blog>(blog, HttpStatus.UNAUTHORIZED);
 		}
-		System.out.println("----Ending of the method saveBlog");
-		return new ResponseEntity<Blog>(blog, HttpStatus.OK);
+
 	}
 
 	@RequestMapping(value = "/blog/getBlog/{blogId}", method = RequestMethod.GET)

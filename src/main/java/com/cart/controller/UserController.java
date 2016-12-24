@@ -89,19 +89,20 @@ public class UserController {
 	public ResponseEntity<User> login(@RequestBody User user, HttpSession session) {
 		System.out.println("------Starting the method login");
 		String id = user.getEmailId();
-		user = userService.validate(user.getEmailId(), user.getPassword());
+		user = userService.validate(user);
 
 		if (user == null) {
 			user = new User();
 			user.setErrorCode("404");
 			user.setErrorMessage("Please Check your credential or user doesn't exist with this id:" + id);
+			return new ResponseEntity<User>(user,HttpStatus.UNAUTHORIZED);//401
 		} else {
 			user.setIsOnline('Y');
 			user.setErrorCode("200");
 			user.setErrorMessage("You have successfully logged");
 			userService.updateUser(user);
 			session.setAttribute("loggedInUserId", user.getEmailId());
-			System.out.println("-----Logg in Id :"+user.getEmailId());
+			System.out.println("-----Logg in Id :" + user.getEmailId());
 		}
 		System.out.println("------Ending of the method");
 		return new ResponseEntity<User>(user, HttpStatus.OK);
@@ -119,7 +120,7 @@ public class UserController {
 
 		System.out.println("User: " + user.getfName());
 		user.setIsOnline('N');
-
+		session.removeAttribute(loggedInUserId);
 		session.invalidate();
 
 		if (userService.updateUser(user)) {

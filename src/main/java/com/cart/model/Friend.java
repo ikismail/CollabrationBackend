@@ -1,6 +1,8 @@
 package com.cart.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -12,17 +14,18 @@ import org.springframework.stereotype.Component;
 public class Friend extends BaseDomain {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	//user can accept or reject friendrequest
-	private String status;
+	// user can accept or reject friendrequest
+	private char status;
 	private char isOnline;
 	private String friendId;
 	private String userID;
 
-	public Friend(){
-		
+	public Friend() {
+
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -31,11 +34,11 @@ public class Friend extends BaseDomain {
 		this.id = id;
 	}
 
-	public String getStatus() {
+	public char getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(char status) {
 		this.status = status;
 	}
 

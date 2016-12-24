@@ -60,8 +60,8 @@ public class UserDaoImpl implements UserDao {
 	@Transactional
 	public User getByemailId(String emailId) {
 		System.out.println("Starting getby emailid method");
-		String hql = "from User where emailId='"+emailId+"'";
-		System.out.println("------getByemailID query : "+hql);
+		String hql = "from User where emailId='" + emailId + "'";
+		System.out.println("------getByemailID query : " + hql);
 		Query query = sessionFactory.openSession().createQuery(hql);
 		return (User) query.uniqueResult();
 	}
@@ -81,23 +81,35 @@ public class UserDaoImpl implements UserDao {
 	@Transactional
 	public boolean updateUser(User user) {
 		System.out.println("starting update method in daoimpl");
+		System.out.println("ISONLINE VALUE IS [BEFORE UPDATE]" + user.getIsOnline());
+		User existingUser;
 		try {
-			sessionFactory.getCurrentSession().update(user);
+			Session session = sessionFactory.openSession();
+			existingUser = (User) session.get(User.class, user.getUserId());
+			existingUser.setIsOnline(user.getIsOnline());
+			session.update(existingUser);
+			session.flush();
+			session.close();
+			System.out.println("ISONLINE VALUE IS [AFTER UPDATE] " + existingUser.getIsOnline());
 			return true;
 		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
+
 	}
 
 	@Transactional
-	public User validate(String emailId, String password) {
+	public User validate(User user) {
+
 		System.out.println("Starting vlidate method in daoImpl");
-		String hql = "from User where emailId='" + emailId + "' and password='" + password + "'";
+		String hql = "from User where emailId='" + user.getEmailId() + "' and password='" + user.getPassword() + "'";
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
 		System.out.println("Ending of the Update Method in DaoImpl");
-		return (User) query.uniqueResult();
-
+		User validUser = (User) query.uniqueResult();
+		return validUser;
+		
 	}
 
 }
