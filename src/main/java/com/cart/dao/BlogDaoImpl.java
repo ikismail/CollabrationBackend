@@ -27,38 +27,6 @@ public class BlogDaoImpl implements BlogDao {
 		this.sessionFactory = sessionFactory;
 	}
 
-	private Integer getMaxLikes() {
-		System.out.println("----> Starting getMaxLikes method");
-		String hql = "select max(likes) from Blog";
-		Query query = sessionFactory.openSession().createQuery(hql);
-		Integer maxLikes;
-		try {
-			maxLikes = (Integer) query.uniqueResult();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return 100;
-		}
-		System.out.println("Max Likes" + maxLikes);
-		return maxLikes;
-	}
-
-	private Integer addDislikes() {
-		System.out.println("----> Starting getMaxLikes method");
-		String hql = "select max(dislikes) from Blog";
-		Query query = sessionFactory.openSession().createQuery(hql);
-		Integer maxDislikes;
-		try {
-			maxDislikes = (Integer) query.uniqueResult();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return 100;
-		}
-		System.out.println("Max Likes" + maxDislikes);
-		return maxDislikes;
-	}
-
 	@Transactional
 	public List<Blog> getAllblogs() {
 		Session session = sessionFactory.openSession();
@@ -134,7 +102,9 @@ public class BlogDaoImpl implements BlogDao {
 		Session session = sessionFactory.openSession();
 		System.out.println("---starting likes ");
 		Blog blog = getBlogById(blogId);
-		blog.setLikes(getMaxLikes() + 1);
+		System.out.println("Before Like: "+ blog.getLikes());
+		blog.setLikes(blog.getLikes() + 1);
+		System.out.println("After Like: "+ blog.getLikes());
 		session.update(blog);
 		session.flush();
 		session.close();
@@ -144,7 +114,9 @@ public class BlogDaoImpl implements BlogDao {
 		Session session = sessionFactory.openSession();
 		System.out.println("---starting likes ");
 		Blog blog = getBlogById(blogId);
-		blog.setDislikes(addDislikes() + 1);
+		System.out.println("Before Dislike: "+ blog.getDislikes());
+		blog.setDislikes(blog.getDislikes() + 1);
+		System.out.println("After Dislike: "+ blog.getDislikes());
 		session.update(blog);
 		session.flush();
 		session.close();

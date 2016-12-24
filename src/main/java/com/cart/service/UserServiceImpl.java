@@ -40,11 +40,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public boolean updateUser(User user) {
-		return userDao.updateUser(user);
+		 return userDao.updateUser(user);
 	}
 
-	public User validate(String id, String password) {
-		return userDao.validate(id, password);
+	public User validate(User user) {
+		return userDao.validate(user);
 	}
 
 }

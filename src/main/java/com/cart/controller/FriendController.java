@@ -46,7 +46,7 @@ public class FriendController {
 		String loggedInUserId = (String) session.getAttribute("loggedInUserId");
 		friend.setUserID(loggedInUserId);
 		friend.setFriendId(friendId);
-		friend.setStatus("New");
+		friend.setStatus('N');
 		System.out.println("sending friendrequest Id: " + friend.getFriendId());
 		friendService.saveFriend(friend);
 		System.out.println("-----Saving and Ending sendFriendRequestMethod");
@@ -63,9 +63,11 @@ public class FriendController {
 	}
 
 	// Method for updating Request
-	private void updateRequest(String friendId, String status, HttpSession session) {
+	private void updateRequest(String friendId, char status, HttpSession session) {
 		System.out.println("----calling method UpdateRequestJavaMethod");
 		String loggedInUserId = (String) session.getAttribute("loggedInUserId");
+		friend = friendService.getBId(friendId, loggedInUserId);
+		System.out.println("In Friend Controller: " + friend.getUserID());
 		friend.setUserID(loggedInUserId);
 		friend.setFriendId(friendId);
 		friend.setStatus(status);
@@ -76,21 +78,27 @@ public class FriendController {
 	@RequestMapping(value = "/unfriend/{friendId}", method = RequestMethod.GET)
 	public ResponseEntity<Friend> unFriend(@PathVariable("friendId") String friendId, HttpSession session) {
 		System.out.println("-----Calling unFriend Method in Controller");
-		updateRequest(friendId, "UnFriend", session);
+		String loggedInUserId = (String) session.getAttribute("loggedInUserId");
+		friend = friendService.getBId(loggedInUserId, friendId);
+		System.out.println("In Friend Controller: " + friend.getUserID());
+		friend.setUserID(loggedInUserId);
+		friend.setFriendId(friendId);
+		friend.setStatus('U');
+		friendService.updateFriend(friend);
 		return new ResponseEntity<Friend>(friend, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/rejectfriend/{friendId}", method = RequestMethod.GET)
 	public ResponseEntity<Friend> rejectFriend(@PathVariable("friendId") String friendId, HttpSession session) {
-		System.out.println("-----Calling unFriend Method in Controller");
-		updateRequest(friendId, "Rejected", session);
+		System.out.println("-----Calling rejectFriend Method in Controller");
+		updateRequest(friendId, 'R', session);
 		return new ResponseEntity<Friend>(friend, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/acceptfriend/{friendId}", method = RequestMethod.GET)
 	public ResponseEntity<Friend> acceptFriend(@PathVariable("friendId") String friendId, HttpSession session) {
-		System.out.println("-----Calling unFriend Method in Controller");
-		updateRequest(friendId, "Accepted", session);
+		System.out.println("-----Calling acceptFriend Method in Controller");
+		updateRequest(friendId, 'A', session);
 		return new ResponseEntity<Friend>(friend, HttpStatus.OK);
 	}
 
