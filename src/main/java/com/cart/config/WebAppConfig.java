@@ -13,7 +13,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.cart.")
+@ComponentScan("com.cart.controller")
 public class WebAppConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public InternalResourceViewResolver viewResolver() {
@@ -25,6 +25,25 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/WEB-INF/resources/");
+	}
+
+	public void configurerDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+		configurer.enable();
+	}
+
+	@Bean
+	public WebContentInterceptor webContentInterceptor() {
+		WebContentInterceptor interceptor = new WebContentInterceptor();
+		interceptor.setCacheSeconds(0);
+		interceptor.setUseExpiresHeader(true);
+		interceptor.setUseCacheControlHeader(true);
+		interceptor.setUseCacheControlNoStore(true);
+		return interceptor;
+	}
+	
+	@Override
+	public void addInterceptors(InterceptorRegistry registry){
+		registry.addInterceptor(webContentInterceptor());
 	}
 
 }
