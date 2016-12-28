@@ -7,9 +7,11 @@ import javax.transaction.Transactional;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.cart.model.Friend;
 import com.cart.model.Job;
 
 @Repository
@@ -68,7 +70,7 @@ public class JobDaoImpl implements JobDao {
 		System.out.println("Ending Update method in DaoImpl");
 		return updatedJob;
 	}
-
+	
 	@Transactional
 	public boolean removeJob(String jobId) {
 		Session session = sessionFactory.openSession();
