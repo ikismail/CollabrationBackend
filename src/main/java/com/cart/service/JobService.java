@@ -12,7 +12,7 @@ public interface JobService {
 
 	boolean saveJob(Job job);
 
-	Job updateJob(String jobId,Job job);
+	Job updateJob(String jobId, Job job);
 
 	boolean removeJob(String jobId);
 }

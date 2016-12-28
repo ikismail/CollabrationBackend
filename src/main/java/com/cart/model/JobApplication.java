@@ -21,11 +21,9 @@ public class JobApplication {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String jobAppId;
 	private String status;
-	@OneToOne(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
-	@JoinColumn(name="userId")
-	private User user;
-	@OneToOne(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
-	@JoinColumn(name="jobId")
+	private String appliedBy;
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "jobId")
 	private Job job;
 
 	public String getJobAppId() {
@@ -44,12 +42,12 @@ public class JobApplication {
 		this.status = status;
 	}
 
-	public User getUser() {
-		return user;
+	public String getAppliedBy() {
+		return appliedBy;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setAppliedBy(String appliedBy) {
+		this.appliedBy = appliedBy;
 	}
 
 	public Job getJob() {

@@ -84,12 +84,7 @@ public class FriendDaoImpl implements FriendDao {
 				+ friend.getStatus() + "Id: " + friend.getId());
 		System.out.println("starting update method in daoimpl ");
 		System.out.println("ISONLINE VALUE IS [BEFORE UPDATE]" + friend.getStatus());
-		// Friend existingFriend;
 		try {
-			// Session session = sessionFactory.openSession();
-			// session.update(friend);
-			// session.close();
-			// Transaction tx = sessionFactory.openSession().beginTransaction();
 			Session session = sessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
 			session.update(friend);
@@ -97,7 +92,6 @@ public class FriendDaoImpl implements FriendDao {
 			System.out.println("ISONLINE VALUE IS [AFTER UPDATE] " + friend.getStatus());
 			return true;
 		} catch (HibernateException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
