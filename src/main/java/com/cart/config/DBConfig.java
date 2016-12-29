@@ -18,6 +18,7 @@ import com.cart.model.BlogComment;
 import com.cart.model.Friend;
 import com.cart.model.Job;
 import com.cart.model.JobApplication;
+import com.cart.model.UploadFile;
 import com.cart.model.User;
 
 @Configuration
@@ -36,7 +37,7 @@ public class DBConfig {
 		lsf.addProperties(hibernateProperties);
 		return lsf.addAnnotatedClass(User.class).addAnnotatedClass(BaseDomain.class).addAnnotatedClass(Blog.class)
 				.addAnnotatedClass(Job.class).addAnnotatedClass(Friend.class).addAnnotatedClass(BlogComment.class)
-				.addAnnotatedClass(JobApplication.class).buildSessionFactory();
+				.addAnnotatedClass(JobApplication.class).addAnnotatedClass(UploadFile.class).buildSessionFactory();
 
 	}
 

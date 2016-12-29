@@ -19,6 +19,7 @@ public class ChatController {
 		System.out.println("calling the method sendMessage");
 		System.out.println("Message : " + message.getMessage());
 		System.out.println("MessageId : " + message.getId());
+		
 		return new OutputMessage(message, new Date());
 	}
 }
