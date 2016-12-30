@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cart.dao.UserDao;
 import com.cart.model.User;
+import com.cart.service.EmailService;
 import com.cart.service.UserService;
 
 @RestController
@@ -30,6 +33,8 @@ public class UserController {
 	private User user;
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private EmailService emailService;
 
 	@RequestMapping(value = "/getAllUsers", method = RequestMethod.GET)
 	public ResponseEntity<List<User>> getAllUsers() {
@@ -72,6 +77,21 @@ public class UserController {
 			user.setIsOnline('N');
 			System.out.println("------saving user in controller");
 			if (userService.saveUser(user)) {
+				String msg = "<br/><br/>Hi Welcome to MailBook !! <br/><br/>This is a simple collaboration application.We are here to help you.. "
+						+ "<br/>Your Emaild: " + user.getEmailId() + ".com" + "<br/> Your Password: "
+						+ user.getPassword() + "<br/> Your Role: " + user.getRole()
+						+ "<br/><br/><br/><br/> Regards, <br/> MailBook Team <br/> Mohammed Ismail.A<br/> CEO & Founder of MailBook.<br/>+91-8124794942.";
+
+				emailService.mail(user.getEmailId() + ".com", user.getfName() + " " + user.getlName(), msg,
+						"Welcome to MailBook!! ");
+				// ApplicationContext context = new
+				// ClassPathXmlApplicationContext("MailService.xml");
+				// MailController mail = (MailController)
+				// context.getBean("mailMail");
+				// mail.sendMail("MailBook.com", user.getEmailId() + ".com",
+				// "Test",
+				// "Hello " + user.getfName() + " " + user.getfName());
+
 				user.setErrorCode("200");
 				user.setErrorMessage("Your registration is Successfull");
 
@@ -95,7 +115,7 @@ public class UserController {
 			user = new User();
 			user.setErrorCode("404");
 			user.setErrorMessage("Please Check your credential or user doesn't exist with this id:" + id);
-			return new ResponseEntity<User>(user,HttpStatus.UNAUTHORIZED);//401
+			return new ResponseEntity<User>(user, HttpStatus.UNAUTHORIZED);// 401
 		} else {
 			user.setIsOnline('Y');
 			user.setErrorCode("200");

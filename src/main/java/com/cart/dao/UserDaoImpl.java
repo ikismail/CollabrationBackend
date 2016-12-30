@@ -109,7 +109,7 @@ public class UserDaoImpl implements UserDao {
 		System.out.println("Ending of the Update Method in DaoImpl");
 		User validUser = (User) query.uniqueResult();
 		return validUser;
-		
+
 	}
 
 }

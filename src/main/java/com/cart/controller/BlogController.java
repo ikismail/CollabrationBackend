@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cart.model.Blog;
+import com.cart.model.User;
 import com.cart.service.BlogService;
+import com.cart.service.EmailService;
+import com.cart.service.UserService;
 
 @Controller
 public class BlogController {
@@ -24,6 +27,12 @@ public class BlogController {
 	private BlogService blogService;
 	@Autowired
 	private Blog blog;
+	@Autowired
+	private EmailService emailService;
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private User user;
 
 	@RequestMapping(value = "/blog/getAllblogs", method = RequestMethod.GET)
 	public ResponseEntity<?> getAllBlogs(HttpSession session) {
@@ -58,6 +67,12 @@ public class BlogController {
 			Date date = new Date();
 			blog.setBlogCreatedDate(date.toString());
 			System.out.println("----saving create blog");
+			user = userService.getByemailId(loggedInUserId);
+			String message = "<br/> <br/> Hi Your post have been successfully added. "
+					+ "<br/><br/> Thank you for using MailBook <br/> Keep on posting and earn points";
+			emailService.mail(user.getEmailId() + ".com", user.getfName() + " " + user.getlName(), message,
+					"MailBook Updates");
+
 			if (blogService.saveBlog(blog)) {
 				blog.setErrorCode("200");
 				blog.setErrorMessage("Your Blog has been saved Successfully");
