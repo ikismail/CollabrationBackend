@@ -92,13 +92,13 @@ public class BlogController {
 	}
 
 	@RequestMapping(value = "/blog/getBlog/{blogId}", method = RequestMethod.GET)
-	public ResponseEntity<Blog> getBlogById(@PathVariable("blogId") String blogId) {
+	public ResponseEntity<Blog> getBlogById(@PathVariable("blogId") int blogId) {
 		Blog blog = blogService.getBlogById(blogId);
 		return new ResponseEntity<Blog>(blog, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/blog/updateBlog/{blogId}", method = RequestMethod.PUT)
-	public ResponseEntity<Blog> updateBlog(@PathVariable("blogId") String blogId, @RequestBody Blog blog) {
+	public ResponseEntity<Blog> updateBlog(@PathVariable("blogId") int blogId, @RequestBody Blog blog) {
 		System.out.println("---Starting Update method in BlogController");
 		Blog updatedBlog = blogService.updateBlog(blogId, blog);
 		if (blog == null) {
@@ -108,7 +108,7 @@ public class BlogController {
 	}
 
 	@RequestMapping(value = "/blog/{blogId}", method = RequestMethod.DELETE)
-	public ResponseEntity<Void> deleteBlog(@PathVariable String blogId) {
+	public ResponseEntity<Void> deleteBlog(@PathVariable int blogId) {
 		Blog blog = blogService.getBlogById(blogId);
 		if (blog == null)
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
@@ -118,28 +118,28 @@ public class BlogController {
 	}
 
 	@RequestMapping(value = "/blog/upvote/{blogId}", method = RequestMethod.GET)
-	public ResponseEntity<Blog> upvote(@PathVariable("blogId") String blogId) {
+	public ResponseEntity<Blog> upvote(@PathVariable("blogId") int blogId) {
 		System.out.println("Starting upvote method in controller");
 		blogService.increaseLikes(blogId);
 		return new ResponseEntity<Blog>(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/blog/downvote/{blogId}", method = RequestMethod.GET)
-	public ResponseEntity<Blog> downvote(@PathVariable("blogId") String blogId) {
+	public ResponseEntity<Blog> downvote(@PathVariable("blogId") int blogId) {
 		System.out.println("Starting upvote method in controller");
 		blogService.increaseDislikes(blogId);
 		return new ResponseEntity<Blog>(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/blog/accept/{blogId}/", method = RequestMethod.GET)
-	public ResponseEntity<Blog> acceptBlog(@PathVariable("blogId") String blogId) {
+	public ResponseEntity<Blog> acceptBlog(@PathVariable("blogId") int blogId) {
 		System.out.println("---Starting acceptBlog method");
 		blog = UpdateStatus(blogId, "Accepted", "");
 		return new ResponseEntity<Blog>(blog, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/blog/reject/{blogId}/{reason}", method = RequestMethod.GET)
-	public ResponseEntity<Blog> rejectBlog(@PathVariable("blogId") String blogId,
+	public ResponseEntity<Blog> rejectBlog(@PathVariable("blogId") int blogId,
 			@PathVariable("reason") String reason) {
 		System.out.println("---Starting RejectBlog method");
 		blog = UpdateStatus(blogId, "Rejected", reason);
@@ -147,7 +147,7 @@ public class BlogController {
 	}
 
 	// method for accept and reject
-	private Blog UpdateStatus(String blogId, String status, String reason) {
+	private Blog UpdateStatus(int blogId, String status, String reason) {
 		System.out.println("---starting update method in blog");
 		System.out.println("Status : " + status);
 		blog = blogService.getBlogById(blogId);

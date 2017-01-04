@@ -40,7 +40,7 @@ public class BlogCommentDaoImpl implements BlogCommentDao {
 	}
 
 	@Transactional
-	public List<BlogComment> getCommentById(String blogId) {
+	public List<BlogComment> getCommentById( int blogId) {
 
 		Session session = sessionFactory.openSession();
 		String hql = "from BlogComment where blogId ='" + blogId + "'";
@@ -50,7 +50,7 @@ public class BlogCommentDaoImpl implements BlogCommentDao {
 	}
 
 	@Transactional
-	public BlogComment getById(String blogId) {
+	public BlogComment getById( int blogId) {
 		System.out.println("Starting of the getById method in DaoImpl");
 		Session session = sessionFactory.openSession();
 		BlogComment comment = (BlogComment) session.get(BlogComment.class, blogId);
@@ -73,7 +73,7 @@ public class BlogCommentDaoImpl implements BlogCommentDao {
 	}
 
 	@Transactional
-	public BlogComment updateComment(String commentId, BlogComment blogComment) {
+	public BlogComment updateComment( int commentId, BlogComment blogComment) {
 
 		Session session = sessionFactory.openSession();
 		if (session.get(BlogComment.class, commentId) == null)
@@ -86,7 +86,7 @@ public class BlogCommentDaoImpl implements BlogCommentDao {
 	}
 
 	@Transactional
-	public void deleteComment(String CommentId) {
+	public void deleteComment( int CommentId) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		BlogComment comment = (BlogComment) session.get(BlogComment.class, CommentId);

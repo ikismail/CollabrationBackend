@@ -8,11 +8,11 @@ public interface JobService {
 
 	List<Job> getAllJobs();
 
-	Job getJobById(String jobId);
+	Job getJobById(int jobId);
 
 	boolean saveJob(Job job);
 
-	Job updateJob(String jobId, Job job);
+	Job updateJob(int jobId, Job job);
 
-	boolean removeJob(String jobId);
+	boolean removeJob(int jobId);
 }

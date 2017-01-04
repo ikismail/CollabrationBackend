@@ -9,23 +9,23 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table
+@Table(name="C_BlogComment")
 @Component
 public class BlogComment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String commentId;
+	private int commentId;
 	private String comment;
 	private String commentedDate;
 	private String blogId;
 	private String userId;
 
-	public String getCommentId() {
+	public int getCommentId() {
 		return commentId;
 	}
 
-	public void setCommentId(String commentId) {
+	public void setCommentId(int commentId) {
 		this.commentId = commentId;
 	}
 

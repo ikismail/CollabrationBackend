@@ -68,7 +68,7 @@ public class BlogDaoImpl implements BlogDao {
 	}
 
 	@Transactional
-	public void deleteBlog(String blogId) {
+	public void deleteBlog(int blogId) {
 		Session session = sessionFactory.openSession();
 		Blog blog = (Blog) session.get(Blog.class, blogId);
 		session.delete(blog);
@@ -77,14 +77,14 @@ public class BlogDaoImpl implements BlogDao {
 	};
 
 	@Transactional
-	public Blog getBlogById(String blogId) {
+	public Blog getBlogById(int blogId) {
 		Session session = sessionFactory.openSession();
 		Blog blog = (Blog) session.get(Blog.class, blogId);
 		session.close();
 		return blog;
 	}
 
-	public Blog updateBlog(String blogId, Blog blog) {
+	public Blog updateBlog(int blogId, Blog blog) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		Blog currentBlog = (Blog) session.get(Blog.class, blogId);
@@ -98,7 +98,7 @@ public class BlogDaoImpl implements BlogDao {
 		return updatedBlog;
 	}
 
-	public void increaseLikes(String blogId) {
+	public void increaseLikes(int blogId) {
 		Session session = sessionFactory.openSession();
 		System.out.println("---starting likes ");
 		Blog blog = getBlogById(blogId);
@@ -110,7 +110,7 @@ public class BlogDaoImpl implements BlogDao {
 		session.close();
 	}
 
-	public void increaseDislikes(String blogId) {
+	public void increaseDislikes(int blogId) {
 		Session session = sessionFactory.openSession();
 		System.out.println("---starting likes ");
 		Blog blog = getBlogById(blogId);

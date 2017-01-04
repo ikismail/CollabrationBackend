@@ -168,6 +168,11 @@
 			<artifactId>spring-aop</artifactId>
 			<version>4.3.3.RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2.0</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>Collaboration</finalName>

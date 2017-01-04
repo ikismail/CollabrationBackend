@@ -20,7 +20,7 @@ public class BlogCommentServiceImpl implements BlogCommentService {
 		return blogCommentDao.commentList();
 	}
 
-	public List<BlogComment> getCommentById(String commentId) {
+	public List<BlogComment> getCommentById(int commentId) {
 		// TODO Auto-generated method stub
 		return blogCommentDao.getCommentById(commentId);
 	}
@@ -30,17 +30,17 @@ public class BlogCommentServiceImpl implements BlogCommentService {
 		blogCommentDao.saveComment(blogComment);
 	}
 
-	public BlogComment updateComment(String commentId, BlogComment blogComment) {
+	public BlogComment updateComment(int commentId, BlogComment blogComment) {
 		// TODO Auto-generated method stub
 		return blogCommentDao.updateComment(commentId, blogComment);
 	}
 
-	public void deleteComment(String CommentId) {
+	public void deleteComment(int CommentId) {
 		// TODO Auto-generated method stub
 		blogCommentDao.deleteComment(CommentId);
 	}
 
-	public BlogComment getById(String blogId) {
+	public BlogComment getById(int blogId) {
 		// TODO Auto-generated method stub
 		return blogCommentDao.getById(blogId);
 	}

@@ -9,13 +9,13 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table
+@Table(name="C_Job")
 @Component
 public class Job extends BaseDomain {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String jobId;
+	private int jobId;
 	private String title;
 	private String description;
 	private String salary;
@@ -31,11 +31,11 @@ public class Job extends BaseDomain {
 		this.qualification = qualification;
 	}
 
-	public String getJobId() {
+	public int getJobId() {
 		return jobId;
 	}
 
-	public void setJobId(String jobId) {
+	public void setJobId(int jobId) {
 		this.jobId = jobId;
 	}
 

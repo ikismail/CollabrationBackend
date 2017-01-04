@@ -32,7 +32,7 @@ public class JobDaoImpl implements JobDao {
 	}
 
 	@Transactional
-	public Job getJobById(String jobId) {
+	public Job getJobById(int jobId) {
 		Session session = sessionFactory.openSession();
 		Job job = (Job) session.get(Job.class, jobId);
 		System.out.println("----getJobById : " + job);
@@ -56,7 +56,7 @@ public class JobDaoImpl implements JobDao {
 	}
 
 	@Transactional
-	public Job updateJob(String jobId, Job job) {
+	public Job updateJob(int jobId, Job job) {
 		System.out.println("-----Starting update job in daoimpl");
 		Session session = sessionFactory.openSession();
 
@@ -72,7 +72,7 @@ public class JobDaoImpl implements JobDao {
 	}
 	
 	@Transactional
-	public boolean removeJob(String jobId) {
+	public boolean removeJob(int jobId) {
 		Session session = sessionFactory.openSession();
 		// make the object persistent - job
 		try {

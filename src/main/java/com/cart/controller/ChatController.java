@@ -11,6 +11,7 @@ import com.cart.model.Message;
 import com.cart.model.OutputMessage;
 
 @Controller
+@RequestMapping("/")
 public class ChatController {
 
 	@MessageMapping("/chat")

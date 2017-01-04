@@ -37,7 +37,7 @@ public class BlogCommentController {
 	}
 
 	@RequestMapping(value = "/blogComment/{blogId}", method = RequestMethod.GET)
-	public ResponseEntity<List<BlogComment>> getCommentById(@PathVariable("blogId") String blogId) {
+	public ResponseEntity<List<BlogComment>> getCommentById(@PathVariable("blogId") int blogId) {
 		List<BlogComment> comment = blogCommentService.getCommentById(blogId);
 		// Comment Id [1] doesn't exist - 1
 		if (comment == null)
@@ -63,7 +63,7 @@ public class BlogCommentController {
 	}
 
 	@RequestMapping(value = "/comment/{commentId}", method = RequestMethod.PUT)
-	public ResponseEntity<BlogComment> updateComment(@PathVariable("commentId") String commentId,
+	public ResponseEntity<BlogComment> updateComment(@PathVariable("commentId") int commentId,
 			@RequestBody BlogComment comment) {
 		// Comment -> from client
 		// updatedComment -> from database
@@ -75,7 +75,7 @@ public class BlogCommentController {
 	}
 
 	@RequestMapping(value = "/comment/{commentId}", method = RequestMethod.DELETE)
-	public ResponseEntity<Void> deleteComment(@PathVariable("commentId") String commentId) {
+	public ResponseEntity<Void> deleteComment(@PathVariable("commentId") int commentId) {
 		BlogComment comment = blogCommentService.getById(commentId);
 		if (comment == null)
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);

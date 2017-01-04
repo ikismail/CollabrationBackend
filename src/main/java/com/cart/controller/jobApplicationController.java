@@ -31,7 +31,7 @@ public class jobApplicationController {
 	private JobService jobService;
 
 	@RequestMapping(value = "/job/applyJob/{jobId}", method = RequestMethod.GET)
-	public ResponseEntity<?> applyJob(@PathVariable("jobId") String jobId, HttpSession session) {
+	public ResponseEntity<?> applyJob(@PathVariable("jobId") int jobId, HttpSession session) {
 		System.out.println("---Applying for Job---");
 		String loggedInUserId = (String) session.getAttribute("loggedInUserId");
 		job = jobService.getJobById(jobId);

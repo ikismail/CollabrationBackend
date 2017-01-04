@@ -51,7 +51,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
-	public ResponseEntity<User> getUserById(@PathVariable("userId") String userId) {
+	public ResponseEntity<User> getUserById(@PathVariable("userId") int userId) {
 		System.out.println("------Starting getUserById method in controller");
 		user = userService.getById(userId);
 		if (user == null) {
@@ -68,7 +68,7 @@ public class UserController {
 	public ResponseEntity<User> createUser(@RequestBody User user) {
 		System.out.println("-----Starting the method register");
 
-		if (userService.getById(user.getUserId()) != null) {
+		if (userService.getByemailId(user.getEmailId()) != null) {
 			user.setErrorCode("404");
 			user.setErrorMessage("With this is Id the record is already exist. Please Choose another id");
 
@@ -155,26 +155,26 @@ public class UserController {
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/user/accept/{userId}", method = RequestMethod.GET)
-	public ResponseEntity<User> accept(@PathVariable("userId") String userId) {
+	@RequestMapping(value = "/user/accept/{emailId}", method = RequestMethod.GET)
+	public ResponseEntity<User> accept(@PathVariable("emailId") String emailId) {
 		System.out.println("------Starting of the method accept");
-		user = updateStatus(userId, 'A', "");
+		user = updateStatus(emailId, 'A', "");
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/user/accept/{userId}/{reason}", method = RequestMethod.GET)
-	public ResponseEntity<User> reject(@PathVariable("userId") String userId, @PathVariable("reason") String reason) {
+	@RequestMapping(value = "/user/accept/{emailId}/{reason}", method = RequestMethod.GET)
+	public ResponseEntity<User> reject(@PathVariable("emailId") String emailId, @PathVariable("reason") String reason) {
 		System.out.println("------Starting of the method reject");
 
-		user = updateStatus(userId, 'R', reason);
+		user = updateStatus(emailId, 'R', reason);
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 
 	// method for accept and reject
-	private User updateStatus(String userId, char status, String reason) {
+	private User updateStatus(String emailId, char status, String reason) {
 		System.out.println("------Starting the method updateStatus");
 		System.out.println("Status: " + status);
-		user = userService.getById(userId);
+		user = userService.getByemailId(emailId);
 		if (user == null) {
 			user = new User();
 			user.setErrorCode("404");
