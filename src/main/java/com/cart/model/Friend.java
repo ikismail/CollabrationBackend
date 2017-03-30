@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table
+@Table(name="C_Friend")
 @Component
 public class Friend extends BaseDomain {
 

@@ -9,13 +9,13 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table(name = "blog")
+@Table(name = "C_Blog")
 @Component
 public class Blog extends BaseDomain {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String blogId;
+	private int blogId;
 	private String title;
 	private String description;
 	private String userId;
@@ -57,11 +57,11 @@ public class Blog extends BaseDomain {
 		return userId;
 	}
 
-	public String getBlogId() {
+	public int getBlogId() {
 		return blogId;
 	}
 
-	public void setBlogId(String blogId) {
+	public void setBlogId(int blogId) {
 		this.blogId = blogId;
 	}
 

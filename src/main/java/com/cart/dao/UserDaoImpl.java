@@ -44,7 +44,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Transactional
-	public User getById(String id) {
+	public User getById(int id) {
 		System.out.println("Starting of the getById method in DaoImpl");
 		Session session = sessionFactory.openSession();
 		User user = (User) session.get(User.class, id);
@@ -109,7 +109,7 @@ public class UserDaoImpl implements UserDao {
 		System.out.println("Ending of the Update Method in DaoImpl");
 		User validUser = (User) query.uniqueResult();
 		return validUser;
-		
+
 	}
 
 }

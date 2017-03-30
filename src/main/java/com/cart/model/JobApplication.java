@@ -13,24 +13,24 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table
+@Table(name="C_JobApp")
 @Component
 public class JobApplication {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String jobAppId;
+	private int jobAppId;
 	private String status;
 	private String appliedBy;
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "jobId")
 	private Job job;
 
-	public String getJobAppId() {
+	public int getJobAppId() {
 		return jobAppId;
 	}
 
-	public void setJobAppId(String jobAppId) {
+	public void setJobAppId(int jobAppId) {
 		this.jobAppId = jobAppId;
 	}
 

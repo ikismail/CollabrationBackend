@@ -30,6 +30,7 @@ public class DBConfig {
 		LocalSessionFactoryBuilder lsf = new LocalSessionFactoryBuilder(getDataSource());
 		Properties hibernateProperties = new Properties();
 		hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+//		hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.OracleDialect");
 		hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "update");
 		hibernateProperties.setProperty("hibernate.show_sql", "true");
 		hibernateProperties.setProperty("hibernate.format_sql", "true");
@@ -44,10 +45,17 @@ public class DBConfig {
 	@Bean
 	public DataSource getDataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
+	
 		dataSource.setDriverClassName("org.h2.Driver");
 		dataSource.setUrl("jdbc:h2:tcp://localhost/~/collabration");
 		dataSource.setUsername("sa");
 		dataSource.setPassword("sa");
+		/*
+		dataSource.setDriverClassName("oracle.jdbc.OracleDriver");
+		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:XE");
+		dataSource.setUsername("colb");
+		dataSource.setPassword("sa");
+*/
 		return dataSource;
 	}
 

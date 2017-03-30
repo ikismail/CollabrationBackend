@@ -27,11 +27,11 @@ public class UserServiceImpl implements UserService {
 		return userDao.getAllUser();
 	}
 
-	public User getById(String id) {
+	public User getById(int id) {
 		return userDao.getById(id);
 	}
-	
-	public User getByemailId(String emailId){
+
+	public User getByemailId(String emailId) {
 		return userDao.getByemailId(emailId);
 	}
 
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public boolean updateUser(User user) {
-		 return userDao.updateUser(user);
+		return userDao.updateUser(user);
 	}
 
 	public User validate(User user) {

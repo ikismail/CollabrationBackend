@@ -8,13 +8,13 @@ public interface BlogCommentDao {
 
 	List<BlogComment> commentList();
 	
-	BlogComment getById(String blogId);
+	BlogComment getById(int blogId);
 
-	List<BlogComment> getCommentById(String blogId);
+	List<BlogComment> getCommentById(int blogId);
 
 	void saveComment(BlogComment blogComment);
 
-	BlogComment updateComment(String commentId, BlogComment blogComment);
+	BlogComment updateComment(int commentId, BlogComment blogComment);
 
-	void deleteComment(String CommentId);
+	void deleteComment(int CommentId);
 }

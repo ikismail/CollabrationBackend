@@ -12,13 +12,13 @@ public interface BlogDao {
 
 	boolean updateStatus(Blog blog);
 	
-	void deleteBlog(String blogId);
+	void deleteBlog(int blogId);
 
-	Blog getBlogById(String blogId);
+	Blog getBlogById(int blogId);
 	
-	Blog updateBlog(String blogId,Blog blog);
+	Blog updateBlog(int blogId,Blog blog);
 	
-	void increaseLikes(String blogId);
+	void increaseLikes(int blogId);
 	
-	void increaseDislikes(String blogId);
+	void increaseDislikes(int blogId);
 }

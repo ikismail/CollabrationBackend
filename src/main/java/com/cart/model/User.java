@@ -9,13 +9,13 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table
+@Table(name="C_User")
 @Component
 public class User extends BaseDomain {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String userId;
+	private int userId;
 	private String fName;
 	private String lName;
 	private String address;
@@ -67,11 +67,11 @@ public class User extends BaseDomain {
 		this.reason = reason;
 	}
 
-	public String getUserId() {
+	public int getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 

@@ -26,7 +26,7 @@ public class JobServiceImpl implements JobService {
 		return jobDao.getAllJobs();
 	}
 
-	public Job getJobById(String jobId) {
+	public Job getJobById(int jobId) {
 		return jobDao.getJobById(jobId);
 	}
 
@@ -34,11 +34,11 @@ public class JobServiceImpl implements JobService {
 		return jobDao.saveJob(job);
 	}
 
-	public Job updateJob(String jobId, Job job) {
+	public Job updateJob(int jobId, Job job) {
 		return jobDao.updateJob(jobId, job);
 	}
 
-	public boolean removeJob(String jobId) {
+	public boolean removeJob(int jobId) {
 		return jobDao.removeJob(jobId);
 	}
 

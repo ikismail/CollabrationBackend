@@ -45,7 +45,7 @@ public class JobController {
 	}
 
 	@RequestMapping(value = "/job/getJobById/{jobId}", method = RequestMethod.GET)
-	public ResponseEntity<Job> getJobById(@PathVariable("jobId") String jobId) {
+	public ResponseEntity<Job> getJobById(@PathVariable("jobId") int jobId) {
 		System.out.println("----Starting getBId in JobController----");
 		Job job = jobService.getJobById(jobId);
 		if (job == null) {
@@ -74,7 +74,7 @@ public class JobController {
 	}
 
 	@RequestMapping(value = "/job/deleteJob/{jobId}", method = RequestMethod.DELETE)
-	public ResponseEntity<Void> deleteJob(@PathVariable("jobId") String jobId) {
+	public ResponseEntity<Void> deleteJob(@PathVariable("jobId") int jobId) {
 		System.out.println("----Starting delete in Jobcontroller");
 		Job job = jobService.getJobById(jobId);
 		if (job == null)
@@ -84,7 +84,7 @@ public class JobController {
 	}
 
 	@RequestMapping(value = "/job/updateJob/{jobId}", method = RequestMethod.PUT)
-	public ResponseEntity<Job> updateJob(@PathVariable("jobId") String jobId, @RequestBody Job job) {
+	public ResponseEntity<Job> updateJob(@PathVariable("jobId") int jobId, @RequestBody Job job) {
 		Date date = new Date();
 		job.setPostDate(date.toString());
 		Job updatedJob = jobService.updateJob(jobId, job);
