@@ -28,8 +28,9 @@ public class EmailServiceImpl implements EmailService {
 
 			String mes2 = mes1.concat(mess);
 
-			final String from = "dignxtismail@gmail.com";
-			final String pass = "project12";
+			//from which mail has to be send 
+			final String from = "abcd@xyz.com";
+			final String pass = "************";
 
 			// defining gmail host
 			String host = "smtp.gmail.com";
